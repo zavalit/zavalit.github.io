@@ -1,0 +1,13 @@
+title: PHPing.me
+description: Overview of PHP essetials and it userland 
+canonical: http://phping.me 
+
+links:
+  - title: Functions
+    url: /functions
+
+
+collections:
+  functions:
+    output: true
+

@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+
+require "json"
+require "erb"
+
+json_path = ARGV[0]
+collections_path = ARGV[1]
+
+puts "json_path: #{json_path}"
+puts "collections_path: #{collections_path}"
+
+json_data_file = open(json_path)
+json_data = json_data_file.read
+json = JSON.parse(json_data)
+
+def create_file(file_path, content)
+  file =File.new(file_path, 'w+')
+  file.write(content)
+  file.close
+end
+
+json.each do |data|
+  file_path = collections_path + "/" + data['name'] + '.md';
+  
+  template =  []
+  template << "---"
+  template << "title: function #{data['name']}"
+  template << "layout: article"
+  template << "---"
+  template << "#{data['desc']}"
+  template = template.join("\n")
+  puts template
+
+  create_file(file_path, template)
+end 
+
+

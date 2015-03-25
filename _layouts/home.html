@@ -1,0 +1,17 @@
+{% include header.html %}
+
+        <section class="article archive">
+          <article class="archive-wrap">
+              <ol class="post-list">
+                 <lh><h2><span class="bb">{{ page.title }}</span></h2></lh>
+                  <li>
+                    <div class="deets">
+                        <h1><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h1>
+                        <p class="">{{ content }}</p>
+                    </div>
+                  </li>
+              </ol>
+          </article>
+        </section>
+
+{% include footer.html %}

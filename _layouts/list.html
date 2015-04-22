@@ -1,22 +1,21 @@
 {% include header.html %}
 
         <section class="article archive">
+        
           <article class="archive-wrap">
+          <lh> 
+            <h1><span class="bb">{{ page.title }}</span></h1>
+            <header>         
+            {{ content }}
+            </header> 
+          </lh>
+          
               <ol class="post-list">
-                 <lh><h1><span class="bb">{{ page.title }}</span></h1></lh>
-					<li><div class="deets"></div></li>
-					
-				 {% for item in site.data.functions %}
-                  <li>
-                    <div class="deets">
-                        <h2><a href="{{ item.name }}.html">{{ item.name }}</a></h2>
-                        <p class="">{{ item.desc }}</p>
-                    </div>
-                  </li>
-                  {% endfor %}
-              
+				         <li><div class="deets">
+                  <h2><a href="vagrant_puppet_docker.html">Develop your php app upon Vagrant, Puppet and Docker</a></h2>
+                 </div></li>
               </ol>
-          </article>
-        </section>
+          </article> 
+          </section>
 
 {% include footer.html %}

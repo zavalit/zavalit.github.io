@@ -5,10 +5,14 @@ canonical: http://phping.me
 links:
   - title: Functions
     url: /functions
+  - title: Provisioning
+    url: /provisioning
 
 
 collections:
   functions:
+    output: true
+  provisioning:
     output: true
 
 highlighter: pygments

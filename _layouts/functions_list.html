@@ -1,0 +1,28 @@
+{% include header.html %}
+
+        <section class="article archive">
+        
+          <article class="archive-wrap">
+          <lh >
+            
+          <h1><span class="bb">{{ page.title }}</span></h1>
+           <header>         
+           {{ content }}
+           </header> 
+          </lh>
+          
+
+              <ol class="post-list">
+         				  {% for item in site.data.functions %}
+                  <li>
+                    <div class="deets">
+                        <h2><a href="{{ item.name }}.html">{{ item.name }}</a></h2>
+                        <p class="">{{ item.desc }}</p>
+                    </div>
+                  </li>
+                  {% endfor %}
+              </ol>
+          </article>
+        </section>
+
+{% include footer.html %}

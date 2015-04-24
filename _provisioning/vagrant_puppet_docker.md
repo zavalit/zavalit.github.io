@@ -8,6 +8,7 @@ tags: [vagrant, docker, puppet, provisioning]
 
 1. [Vagrant configuration](#vagrant-configuration)
 2. [Puppet configuration](#puppet-configuration)
+3. [Run automated tests with serverspec](#run-automated-tests-with-serverspec)
 
 The point of this post is to show how we can develop localy a php app, 
 that suites an both local and production topologies. 
@@ -30,7 +31,7 @@ That should load an ubuntu image, that vagrant will provide for virtualisation. 
 as a host? We should have a max possible control of our environment, in a case we mess it along with out host system, you can be never sure of all possible side effects your host system have apart.
 
 {% highlight ruby %}
-# empty ubuntu image with hostname phping 
+# empty ubuntu image with hostname phping.local 
 Vagrant.configure("2") do |config|
 
   config.vm.box = "ubuntu/trusty64"
@@ -41,8 +42,8 @@ end
 {% endhighlight %}
 
 
-It can be optional, but it makes definitely sense to control an ip that our vagrant box could have.
-For that we install an vagrant plugin:
+It can be optional, but it makes definitely sense to control an ip that both our vagrant vm a host machine are
+aware about. For that we install an vagrant plugin:
 
 {% highlight bash %}
 
@@ -50,7 +51,8 @@ For that we install an vagrant plugin:
 
 {% endhighlight %}
 
-and extend our Vagrantfile with an ip, that we want our vagrant instance should have.
+and extend our Vagrantfile with an ip, that we want our vagrant instance should have. In parallel
+the Vagrantfile could be refactored a bit, in order to make our vagrant instance more specific.
 
 {% highlight ruby %}
 
@@ -61,13 +63,18 @@ hostname = "phping.local";
 # run config
 Vagrant.configure("2") do |config|
 
-  config.vm.box = "ubuntu/trusty64"
-  config.vm.hostname = hostname
+  # here we gave a vagrant vm instance a name "phping.local" that is referenced by variable hostname
+  config.vm.define hostname do |phping|
   
-  config.vm.network "private_network", :ip => ip
+    phping.vm.box = "ubuntu/trusty64"
+    phping.vm.hostname = hostname
+  
+    phping.vm.network "private_network", :ip => ip
  
-  config.hostmanager.enabled    = true
-  config.hostmanager.manage_host = true
+    phping.hostmanager.enabled    = true
+    phping.hostmanager.manage_host = true
+
+  end
 
 end 
 
@@ -92,7 +99,7 @@ puppet. For that we extend our Vagrantfile with provision statement:
 
 # ...box, hostname and networking settings 
   
-  config.vm.provision :puppet do |puppet|
+  phping.vm.provision :puppet do |puppet|
 
     puppet.module_path = ["modules", "vendor/modules"] # where do we store our own and external puppet modules
     puppet.options     = '--debug --verbose --summarize --reports store' # some debug
@@ -239,3 +246,81 @@ Connection: keep-alive
 
 
 
+### 3. Run automated tests with serverspec
+
+We are done, but! as an awesome developer, that we all are, since we try that stack out,
+ we can not just test it manually. It's not the a way a proper software can be developed and supported.
+  For that we extend our Gemfile with an additional gem serverspec:
+ 
+{% highlight ruby %}
+
+source "https://rubygems.org"
+
+gem "librarian-puppet"
+gem "puppet"
+gem "serverspec"
+
+{% endhighlight %}
+
+ 
+and execute serverspec-init in a project root. The output tree should look smth. like this:
+
+{% highlight bash %}
+
+$ serverspec-init
+# ... dialog how to configure your initial spec setup 
+
+# and that is how it could be structured in the end
+spec/
+|____phping.local
+| |____sample_spec.rb
+|____spec_helper.rb
+
+{% endhighlight %}
+
+
+We replace a template sample_spec.rb with our own spec file base_spec.rb and write a spec to test whether our php server 
+corouser is running
+
+{% highlight ruby %}
+
+require 'spec_helper'
+
+[22, 8081].each do |value| 
+
+  describe port(value) do
+    it {should be_listening}
+  end
+
+end
+
+describe host('phping.local') do
+  it {should be_reachable}
+  it {should be_resolvable}
+end
+{% endhighlight %}
+
+
+Now is a time to run a test
+
+{% highlight bash %}
+
+$ rake spec
+
+Port "22"
+  should be listening
+
+Port "8081"
+  should be listening
+
+Host "phping.local"
+  should be reachable
+  should be resolvable
+
+Finished in 1.77 seconds (files took 7.95 seconds to load)
+4 examples, 0 failures
+
+
+{% endhighlight %}
+
+And **it {should make_me_happy}** to see that tests are passed. Now we can leave that setup in peace and take a bear. 

@@ -1,6 +1,8 @@
 title: PHPing.me
 description: Overview of PHP essetials and it userland 
 canonical: http://phping.me 
+owner:
+  - twitter: seva_dolgopolov
 
 links:
   - title: Functions

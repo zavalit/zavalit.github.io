@@ -301,7 +301,7 @@ end
 {% endhighlight %}
 
 
-Now is a time to run a test
+Now it is a perfect time to let serverspec run all defined tests:
 
 {% highlight bash %}
 

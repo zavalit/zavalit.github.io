@@ -325,4 +325,4 @@ Finished in 1.77 seconds (files took 7.95 seconds to load)
 
 And **it {should make_me_happy}** to see that tests are passed. Now we can leave that setup in peace and take a bear. 
 
-##### *if you experiance some any problems to get it run you can take a look at [github repo](https://github.com/zavalit/vagrant_puppet_docker_stack) for it*
+##### *if you experience some any problems to get it run you can take a look at [github repo](https://github.com/zavalit/vagrant_puppet_docker_stack) for it*

@@ -1,7 +1,7 @@
 ---
 layout: functions_list
 permalink: /functions/index.html
-title: PHP Functions Overview
+title: PHP Functions.
 description: PHP functions description
 tags: [functions] 
 ---

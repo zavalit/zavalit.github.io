@@ -1,7 +1,7 @@
 ---
-layout: list 
+layout: provisioning_list 
 permalink: /provisioning/index.html
-title: PHP Provisioning
+title: PHP Provisioning.
 description: PHP Provisioning
 tags: [provisioning] 
 ---

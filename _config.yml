@@ -5,16 +5,23 @@ owner:
   twitter: seva_dolgopolov
 
 links:
-  - title: Functions
-    url: /functions
+  - title: Design
+    url: /design
+  - title: QA
+    url: /qa
   - title: Provisioning
     url: /provisioning
-
-
+  - title: Functions
+    url: /functions
+    
 collections:
   functions:
     output: true
   provisioning:
+    output: true
+  qa:
+    output: true
+  design:
     output: true
 
 highlighter: pygments

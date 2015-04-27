@@ -1,8 +1,8 @@
 ---
 layout: article
 permalink: /provisioning/vagrant_puppet_docker.html
-title: Develop your php app upon Vagrant, Puppet and Docker
-description: A result oriented "howto" to develop and run a php application with Vagrant, Puppet and Docker.
+title: Run your php app upon Vagrant, Puppet and Docker
+description: A result oriented "howto" to configure and run a php application with Vagrant, Puppet and Docker.
 tags: [vagrant, docker, puppet, provisioning]
 ---
 

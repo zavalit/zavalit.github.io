@@ -5,12 +5,19 @@ tags: array, callback, syntax, performance, php, hhvm
 layout: article
 ---
 
+
 ## Syntax
 {% highlight php startinline=true %}
     
     array array_map(callable $callback, array $array1 [, array $arrayn])
 
 {% endhighlight %}
+
+array_map takes as a first argument a callable function, which is most often a anonymous function and that is where php meets functional programming.
+The functional programming provides us an interface for immutable structures simply by design and that can be really useful in some cases.
+In the case of **array_map** function we get each element of array completely isolated from outside world for granted.
+ 
+
 
 ## Performance
 
